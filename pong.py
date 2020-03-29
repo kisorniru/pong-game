@@ -3,12 +3,18 @@
 # Part 1: Getting Started
 
 import turtle
+import os
+# import winsound # for windows
 
 wn = turtle.Screen()
 wn.title("Pong by @kisorniru")
 wn.bgcolor("black")
 wn.setup(width=800, height=600)
 wn.tracer(0)
+
+# Score
+score_left = 0
+score_right = 0
 
 # Paddle Left
 paddle_left = turtle.Turtle()
@@ -41,6 +47,15 @@ paddle_ball.dx = .05
 # When we say delta (d) y, for example, we mean the change in y or how much y changes.
 # Here, everything our ball moves, it moves 2px.
 paddle_ball.dy = -.05
+
+# Pen
+pen = turtle.Turtle()
+pen.speed(0)
+pen.color("white")
+pen.penup()
+pen.hideturtle()
+pen.goto(0, 260)
+pen.write("Player A: 0 Player B: 0", align="center", font=("Courier", 24, "normal"))
 
 # Function
 def paddle_left_up():
@@ -78,7 +93,7 @@ while True:
     paddle_ball.setx(paddle_ball.xcor() + paddle_ball.dx)
     paddle_ball.sety(paddle_ball.ycor() + paddle_ball.dy)
 
-    # Border checking
+    # Paddle Border checking
     if paddle_left.ycor() > 250:
         new_y = -250
         paddle_left.sety(new_y)
@@ -95,29 +110,44 @@ while True:
         new_y = 250
         paddle_right.sety(new_y)
 
+    # Ball Border checking
     if paddle_ball.ycor() > 290:
         paddle_ball.sety(290)
         paddle_ball.dy *= -1
+        # afplay for mac
+        os.system("aplay bounce.wav&")
+        # for windows
+        # winsound.PlaySound("bounce.wav", winound.SND_ASYNC)
 
     if paddle_ball.ycor() < -290:
         paddle_ball.sety(-290)
         paddle_ball.dy *= -1
+        os.system("aplay bounce.wav&")
 
     if paddle_ball.xcor() > 390:
         # paddle_ball.setx(390)
         paddle_ball.goto(0, 0)
         paddle_ball.dx *= -1
+        score_right += 1
+        pen.clear()
+        pen.write("Player A: {} Player B: {}".format(score_left, score_right), align="center", font=("Courier", 24, "normal"))
 
     if paddle_ball.xcor() < -390:
         # paddle_ball.setx(-390)
         paddle_ball.goto(0, 0)
         paddle_ball.dx *= -1
+        score_left += 1
+        pen.clear()
+        pen.write("Player A: {} Player B: {}".format(score_left, score_right), align="center",
+                  font=("Courier", 24, "normal"))
 
     #  Paddle and ball collisions
     if (paddle_ball.xcor() > 340 and paddle_ball.xcor() < 350 ) and (paddle_ball.ycor() < paddle_right.ycor() + 40 and paddle_ball.ycor() > paddle_right.ycor() - 40):
         paddle_ball.setx(340)
         paddle_ball.dx *= -1
+        os.system("aplay bounce.wav&")
 
     if (paddle_ball.xcor() < -340 and paddle_ball.xcor() > -350 ) and (paddle_ball.ycor() < paddle_left.ycor() + 40 and paddle_ball.ycor() > paddle_left.ycor() - 40):
         paddle_ball.setx(-340)
         paddle_ball.dx *= -1
+        os.system("aplay bounce.wav&")
