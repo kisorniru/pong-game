@@ -115,14 +115,14 @@ while True:
         paddle_ball.sety(290)
         paddle_ball.dy *= -1
         # afplay for mac
-        os.system("aplay bounce.wav&")
+        os.system("aplay sound/bounce.wav&")
         # for windows
         # winsound.PlaySound("bounce.wav", winound.SND_ASYNC)
 
     if paddle_ball.ycor() < -290:
         paddle_ball.sety(-290)
         paddle_ball.dy *= -1
-        os.system("aplay bounce.wav&")
+        os.system("aplay sound/bounce.wav&")
 
     if paddle_ball.xcor() > 390:
         # paddle_ball.setx(390)
@@ -145,9 +145,9 @@ while True:
     if (paddle_ball.xcor() > 340 and paddle_ball.xcor() < 350 ) and (paddle_ball.ycor() < paddle_right.ycor() + 40 and paddle_ball.ycor() > paddle_right.ycor() - 40):
         paddle_ball.setx(340)
         paddle_ball.dx *= -1
-        os.system("aplay bounce.wav&")
+        os.system("aplay sound/bounce.wav&")
 
     if (paddle_ball.xcor() < -340 and paddle_ball.xcor() > -350 ) and (paddle_ball.ycor() < paddle_left.ycor() + 40 and paddle_ball.ycor() > paddle_left.ycor() - 40):
         paddle_ball.setx(-340)
         paddle_ball.dx *= -1
-        os.system("aplay bounce.wav&")
+        os.system("aplay sound/bounce.wav&")
