@@ -4,6 +4,7 @@
 
 import turtle
 import os
+
 # import winsound # for windows
 
 wn = turtle.Screen()
@@ -57,26 +58,31 @@ pen.hideturtle()
 pen.goto(0, 260)
 pen.write("Player A: 0 Player B: 0", align="center", font=("Courier", 24, "normal"))
 
+
 # Function
 def paddle_left_up():
     y = paddle_left.ycor()
     y += 20
     paddle_left.sety(y)
 
+
 def paddle_left_down():
     y = paddle_left.ycor()
     y -= 20
     paddle_left.sety(y)
+
 
 def paddle_right_up():
     y = paddle_right.ycor()
     y += 20
     paddle_right.sety(y)
 
+
 def paddle_right_down():
     y = paddle_right.ycor()
     y -= 20
     paddle_right.sety(y)
+
 
 # keyboard binding
 wn.listen()
@@ -130,7 +136,8 @@ while True:
         paddle_ball.dx *= -1
         score_right += 1
         pen.clear()
-        pen.write("Player A: {} Player B: {}".format(score_left, score_right), align="center", font=("Courier", 24, "normal"))
+        pen.write("Player A: {} Player B: {}".format(score_left, score_right), align="center",
+                  font=("Courier", 24, "normal"))
 
     if paddle_ball.xcor() < -390:
         # paddle_ball.setx(-390)
@@ -142,12 +149,14 @@ while True:
                   font=("Courier", 24, "normal"))
 
     #  Paddle and ball collisions
-    if (paddle_ball.xcor() > 340 and paddle_ball.xcor() < 350 ) and (paddle_ball.ycor() < paddle_right.ycor() + 40 and paddle_ball.ycor() > paddle_right.ycor() - 40):
+    if (340 < paddle_ball.xcor() < 350) and (
+            paddle_right.ycor() + 40 > paddle_ball.ycor() > paddle_right.ycor() - 40):
         paddle_ball.setx(340)
         paddle_ball.dx *= -1
         os.system("aplay sound/bounce.wav&")
 
-    if (paddle_ball.xcor() < -340 and paddle_ball.xcor() > -350 ) and (paddle_ball.ycor() < paddle_left.ycor() + 40 and paddle_ball.ycor() > paddle_left.ycor() - 40):
+    if (paddle_ball.xcor() < -340 and paddle_ball.xcor() > -350) and (
+            paddle_ball.ycor() < paddle_left.ycor() + 40 and paddle_ball.ycor() > paddle_left.ycor() - 40):
         paddle_ball.setx(-340)
         paddle_ball.dx *= -1
         os.system("aplay sound/bounce.wav&")
